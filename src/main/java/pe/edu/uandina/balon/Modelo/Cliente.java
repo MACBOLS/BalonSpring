@@ -2,6 +2,7 @@ package pe.edu.uandina.balon.Modelo;
 
 import javax.persistence.*;
 import java.lang.annotation.Target;
+import java.util.List;
 
 @Entity
 @Table(name = "cliente")
@@ -24,20 +25,21 @@ public class Cliente {
     @Column(name = "fechaNacimiento")
     private String fechaNacimiento;
 
-    @ManyToOne
-    @JoinColumn(name = "solicitaRegistro", referencedColumnName = "idRegistro")
-    private Registro solicitaRegistro;
+    //---
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Registro> solicitaRegistro;
 
     public Cliente() {
     }
 
-    public Cliente(String nombre, String apellidos, String DNI, String celular, String domicilio, String fechaNacimiento) {
+    public Cliente(String nombre, String apellidos, String DNI, String celular, String domicilio, String fechaNacimiento, List<Registro> solicitaRegistro) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.DNI = DNI;
         this.celular = celular;
         this.domicilio = domicilio;
         this.fechaNacimiento = fechaNacimiento;
+        this.solicitaRegistro = solicitaRegistro;
     }
 
     public long getIdCliente() {
@@ -96,11 +98,4 @@ public class Cliente {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Registro getSolicitaRegistro() {
-        return solicitaRegistro;
-    }
-
-    public void setSolicitaRegistro(Registro solicitaRegistro) {
-        this.solicitaRegistro = solicitaRegistro;
-    }
 }

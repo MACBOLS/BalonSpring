@@ -16,20 +16,27 @@ public class Balon {
     @Column(name = "estado")
     private String estado;
 
-    @OneToMany
-    private List<Administrador> perteneceAdministrador;
 
-    @OneToMany
-    private List<Registro> perteneceRegistro;
+    //--------
+
+    @ManyToOne
+    @JoinColumn(name = "pertenceRegistro", referencedColumnName = "idRegistro")
+    private Registro pertenceRegistro;
+
+    @ManyToOne
+    @JoinColumn(name = "perteneceAdministrador", referencedColumnName = "idAdministrador")
+    private Administrador perteneceAdministrador;
+
+    @ManyToOne
+    @JoinColumn(name = "tieneEstado", referencedColumnName = "idEstado")
+    private Estado tieneEstado;
 
     public Balon() {
     }
 
-    public Balon(String capacidad, String estado, List<Administrador> perteneceAdministrador, List<Registro> perteneceRegistro) {
+    public Balon(String capacidad, String estado) {
         this.capacidad = capacidad;
         this.estado = estado;
-        this.perteneceAdministrador = perteneceAdministrador;
-        this.perteneceRegistro = perteneceRegistro;
     }
 
     public long getIdBalon() {
@@ -54,5 +61,28 @@ public class Balon {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Registro getPertenceRegistro() {
+        return pertenceRegistro;
+    }
+    public void setPertenceRegistro(Registro pertenceRegistro) {
+        this.pertenceRegistro = pertenceRegistro;
+    }
+
+    public Administrador getPerteneceAdministrador() {
+        return perteneceAdministrador;
+    }
+
+    public void setPerteneceAdministrador(Administrador perteneceAdministrador) {
+        this.perteneceAdministrador = perteneceAdministrador;
+    }
+
+    public Estado getTieneEstado() {
+        return tieneEstado;
+    }
+
+    public void setTieneEstado(Estado tieneEstado) {
+        this.tieneEstado = tieneEstado;
     }
 }

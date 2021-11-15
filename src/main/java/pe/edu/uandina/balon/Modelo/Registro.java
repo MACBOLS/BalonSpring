@@ -17,25 +17,26 @@ public class Registro {
     @Column(name = "fechaSalida")
     private Calendar fechaSalida;
 
+    //------------
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Balon> tieneBalon;
+
     @ManyToOne
-    @JoinColumn(name = "tieneBalon", referencedColumnName = "idBalon")
-    private Balon tieneBalon;
+    @JoinColumn(name = "perteneceCliente", referencedColumnName = "idCliente")
+    private Cliente perteneceCliente;
 
-    @OneToMany
-    private List<Cliente> perteneceCliente;
-
-    @OneToMany
-    private List<Accion> tieneAccion;
+    @ManyToOne
+    @JoinColumn(name = "tieneAccion", referencedColumnName = "idAccion")
+    private Accion tieneAccion;
 
 
     public Registro() {
     }
 
-    public Registro(Date fechaEntrada, Calendar fechaSalida, List<Cliente> perteneceCliente, List<Accion> tieneAccion) {
+    public Registro(Date fechaEntrada, Calendar fechaSalida) {
         this.fechaEntrada = fechaEntrada;
         this.fechaSalida = fechaSalida;
-        this.perteneceCliente = perteneceCliente;
-        this.tieneAccion = tieneAccion;
     }
 
     public long getIdRegistro() {
@@ -62,11 +63,11 @@ public class Registro {
         this.fechaSalida = fechaSalida;
     }
 
-    public Balon getTieneBalon() {
-        return tieneBalon;
+    public Cliente getPerteneceCliente() {
+        return perteneceCliente;
     }
 
-    public void setTieneBalon(Balon tieneBalon) {
-        this.tieneBalon = tieneBalon;
+    public void setPerteneceCliente(Cliente perteneceCliente) {
+        this.perteneceCliente = perteneceCliente;
     }
 }

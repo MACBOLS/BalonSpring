@@ -1,6 +1,7 @@
 package pe.edu.uandina.balon.Modelo;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "accion")
@@ -12,15 +13,18 @@ public class Accion {
     @Column(name = "nombre")
     public String nombre;
 
-    @ManyToOne
-    @JoinColumn(name = "perteneceRegistro", referencedColumnName = "idRegistro")
-    private Registro perteneceRegistro;
+    //-----
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Registro> perteneceRegistro;
+
 
     public Accion() {
     }
 
-    public Accion(String nombre) {
-        this.nombre = nombre;
+
+    public Accion(String nombre, List<Registro> perteneceRegistro) {
+        this.nombre = nombre;this.perteneceRegistro = perteneceRegistro;
     }
 
     public long getIdAccion() {
@@ -39,11 +43,4 @@ public class Accion {
         this.nombre = nombre;
     }
 
-    public Registro getPerteneceRegistro() {
-        return perteneceRegistro;
-    }
-
-    public void setPerteneceRegistro(Registro perteneceRegistro) {
-        this.perteneceRegistro = perteneceRegistro;
-    }
 }

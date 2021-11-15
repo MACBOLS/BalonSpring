@@ -20,14 +20,17 @@ public class Administrador {
     private Usuario tieneUsuario;
 
 
-    @ManyToOne
-    @JoinColumn(name = "administraBalon", referencedColumnName = "idBalon")
-    private Balon administraBalon;
+    //-------
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Balon> administraBalon;
+
+
+
 
     public Administrador() {
     }
 
-    public Administrador(String nombre, String apellidos) {
+    public Administrador(String nombre, String apellidos, List<Balon> administraBalon) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.administraBalon = administraBalon;
@@ -65,11 +68,5 @@ public class Administrador {
         this.tieneUsuario = tieneUsuario;
     }
 
-    public Balon getAdministraBalon() {
-        return administraBalon;
-    }
 
-    public void setAdministraBalon(Balon administraBalon) {
-        this.administraBalon = administraBalon;
-    }
 }
